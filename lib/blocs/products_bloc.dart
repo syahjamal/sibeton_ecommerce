@@ -30,6 +30,8 @@ class ProductsBloc implements BlocBase {
       _products.addAll(tempProducts);
       _inProducts.add(_products);
     });
+
+    //_productsController.addError('This is an Error');
   }
 
   @override

@@ -23,6 +23,7 @@ class CartBloc extends BlocBase{
   }
 
   void addProduct(Product product){
+    assert(product != null);
     final products = _cart.products;
     if(products.contains(product)){
       products[products.indexOf(product)].amount++;

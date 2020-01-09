@@ -10,6 +10,8 @@ class SelectedCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductsBloc _productBloc = BlocProvider.of<ProductsBloc>(context);
     final _cartBloc = BlocProvider.of<CartBloc>(context);
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -19,22 +21,48 @@ class SelectedCategoryPage extends StatelessWidget {
       body: StreamBuilder<List<Product>>(
         stream: _productBloc.outProducts,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final product = snapshot.data[index];
-                  return InkWell(
-                    onTap: ()=> _cartBloc.addProduct(product),
-                    child: Center(
-                      child: Text(snapshot.data[index].name),
-                    ),
-                  );
-                });
+          if (snapshot.hasError) {
+            return Text(snapshot.error);
           }
-          return SizedBox();
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            default:
+              return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final product = snapshot.data[index];
+                    return Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Image.network(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () => _cartBloc.addProduct(product),
+                              child: Center(
+                                child: Text(
+                                  snapshot.data[index].name,
+                                  style: theme.primaryTextTheme.title
+                                      .copyWith(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+          }
         },
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sibeton_ecommerce/models/category.dart';
-import 'package:sibeton_ecommerce/models/product.dart';
+//import 'package:sibeton_ecommerce/models/product.dart';
 
 class DbApi{
   /*List<Category> getCategories(){

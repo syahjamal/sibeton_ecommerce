@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sibeton_ecommerce/blocs/categories_bloc.dart';
 import 'package:sibeton_ecommerce/blocs/products_bloc.dart';
 import 'package:sibeton_ecommerce/models/category.dart';
-import 'package:sibeton_ecommerce/models/product.dart';
+//import 'package:sibeton_ecommerce/models/product.dart';
 import 'package:sibeton_ecommerce/pages/selected_category_page.dart';
 import 'package:sibeton_ecommerce/widgets/bloc_provider.dart';
 import 'package:sibeton_ecommerce/widgets/cart_button.dart';
