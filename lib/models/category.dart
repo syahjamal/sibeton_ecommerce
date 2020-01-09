@@ -7,7 +7,7 @@ class Category{
   Category(){
     name = 'motherboard';
   }
-  Category.fromFirebase(Map<String, dynamic> json){
+  Category.fromFirestore(Map<String, dynamic> json){
     name = json[NAME_KEY];
   }
 }
